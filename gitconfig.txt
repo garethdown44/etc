@@ -1,0 +1,73 @@
+[user]
+    name = {......}
+    email = {......}
+ 
+[core]
+    editor = code
+    pager = cat
+
+[alias]
+    co = checkout
+    cp = cherry-pick
+    br = branch
+    ci = commit
+    st = status
+    cg = config --global -e
+    df = diff --ignore-space-at-eol -b -w
+    lg = log -30 --graph --pretty=format:'%Cred%h%Creset - %Cgreen%cr%Creset | %C(yellow)%d%Creset %s %C(bold yellow)[%an]%Creset' --abbrev-commit --date=short
+    tidy = !git fsck -- unreachable && git reflog expire --expire=0 --all && git repack --max-pack-size=100M -a -d -l && git prune && git gc --aggressive
+    mt = mergetool
+    fpull = per rebase
+    fpush = per submit
+    rb = rebase
+    cmp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
+ 
+[merge]
+    tool = bc3
+
+[mergetool]
+    prompt = false
+    keepBackup = false
+
+[mergetool "bc3"]
+    cmd = bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+    trustExitCode = true
+ 
+[diff]
+    tool = bc3
+
+[difftool "bc3"]
+    cmd = bcomp \"$LOCAL\" \"$REMOTE\"
+    prompt = false
+ 
+[color]
+    ui = auto
+    interactive = auto
+    merge = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[branch]
+    autosetupmerge = true
+    autosetuprebase = always
+
+[pack]
+    windowMemory = 256m
+    packSizeLimit = 100m
+  
+[push]
+    default = current
